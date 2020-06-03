@@ -1,6 +1,7 @@
 dependencies:
   core-js: 3.6.5
   rickshaw: 1.7.1
+  uuid: 8.1.0
   vue: 2.6.11
 devDependencies:
   '@vue/cli-plugin-babel': 4.3.1_@vue+cli-service@4.3.1
@@ -8158,6 +8159,11 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==
+  /uuid/8.1.0:
+    dev: false
+    hasBin: true
+    resolution:
+      integrity: sha512-CI18flHDznR0lq54xBycOVmphdCYnQLKn8abKn7PXUiKUGdEd+/l9LWNJmugXel4hXq7S+RMNl34ecyC9TntWg==
   /v8-compile-cache/2.1.0:
     dev: true
     resolution:
@@ -8613,5 +8619,6 @@ specifiers:
   eslint: ^6.7.2
   eslint-plugin-vue: ^6.2.2
   rickshaw: ^1.7.1
+  uuid: ^8.1.0
   vue: ^2.6.11
   vue-template-compiler: ^2.6.11

@@ -2,7 +2,7 @@
     <div class="hello">
         <h1>{{ msg }}</h1>
         <div id="chart_container">
-        <div id="chart" class="rickshaw-graph"></div>
+        <div id="chart" ref="chart" class="rickshaw-graph"></div>
         </div>
     </div>
 </template>
@@ -14,24 +14,53 @@
         props: {
             msg: String
         },
+        data: function () {
+            return {
+                lastNum: 0,
+                lastX: 100,
+                lightData: Array.from({length: 100}, (x, i) => ({x: i, y: 0})),
+                zeroAxis: Array.from({length: 100}, (x, i) => ({x: i, y: 0})),
+                graph: []
+            }
+        },
         mounted() {
             this.initChart();
+            setInterval(() => {
+                this.lastX += 1;
+                this.lastNum += Math.random() - 0.5;
+                this.lightData.shift();
+                this.lightData.push({x: this.lastX, y: this.lastNum});
+                this.zeroAxis.shift();
+                this.zeroAxis.push({x: this.lastX, y: 0});
+                this.graph[0].update();
+            }, 100);
         },
         methods: {
             initChart() {
-                var graph = new Rickshaw.Graph({
-                element: document.getElementById('chart'),
+                this.graph[0] = new Rickshaw.Graph({
+                element: this.$refs.chart,
+                height: 300,
+                width: 800,
+                min: "auto",
+                padding: {
+                    top: 0.1,
+                    bottom: 0.1,
+                    left: 0.1,
+                    right: 0.1
+                },
+                renderer: "line",
                 series: [
                     {
-                    color: 'steelblue',
-                    data: [ { x: 0, y: 23}, { x: 1, y: 15 }, { x: 2, y: 79 } ]
-                    }, {
-                    color: 'lightblue',
-                    data: [ { x: 0, y: 30}, { x: 1, y: 20 }, { x: 2, y: 64 } ]
+                        color: 'black',
+                        data: this.lightData
+                    },
+                    {
+                        color: 'gray',
+                        data: this.zeroAxis
                     }
                 ]
                 });
-            graph.render();
+                this.graph[0].render();
             }
         }
     }
