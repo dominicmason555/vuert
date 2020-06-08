@@ -1,17 +1,24 @@
 <template>
     <div id="app">
-        <HelloWorld msg="Graph Test"/>
-        <HelloWorld msg="Graph Test 2"/>
+        <DataEmitter msg="Emitter" v-bind:frequency="100"/>
+        <LiveGraph msg="Fast Graph Test" dataKey="point1" />
+        <LiveGraph msg="Slow Graph Test" dataKey="point2" />
     </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import LiveGraph from './components/LiveGraph.vue'
+import DataEmitter from './components/DataEmitter.vue'
+import Rickshaw from "rickshaw"
+import Vue from 'vue'
+
+Object.defineProperty(Vue.prototype, '$rickshaw', { value: Rickshaw });
 
 export default {
     name: 'App',
     components: {
-        HelloWorld
+        DataEmitter,
+        LiveGraph
     }
 }
 </script>

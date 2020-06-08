@@ -1,46 +1,49 @@
 <template>
-    <div class="hello">
-        <h1>{{ msg }}</h1>
+    <div class="LiveGraph">
+        <h2>{{ msg }}</h2>
         <div id="chart_container">
-        <div id="chart" ref="chart" class="rickshaw-graph"></div>
+            <div id="chart" ref="chart" class="rickshaw-graph"></div>
         </div>
     </div>
 </template>
 
 <script>
-    import Rickshaw from "rickshaw"
     export default {
-        name: 'HelloWorld',
+        name: 'LiveGraph',
         props: {
-            msg: String
+            msg: String,
+            dataKey: String
         },
         data: function () {
             return {
-                lastNum: 0,
-                lastX: 100,
-                lightData: Array.from({length: 100}, (x, i) => ({x: i, y: 0})),
-                zeroAxis: Array.from({length: 100}, (x, i) => ({x: i, y: 0})),
+                lightData: Array.from({length: 100}, 
+                                        () => ({x: Date.now(), y: 0})),
+                zeroAxis: Array.from({length: 100}, 
+                                        () => ({x: Date.now(), y: 0})),
                 graph: []
             }
         },
         mounted() {
             this.initChart();
-            setInterval(() => {
-                this.lastX += 1;
-                this.lastNum += Math.random() - 0.5;
-                this.lightData.shift();
-                this.lightData.push({x: this.lastX, y: this.lastNum});
-                this.zeroAxis.shift();
-                this.zeroAxis.push({x: this.lastX, y: 0});
-                this.graph[0].update();
-            }, 100);
+            this.$root.$on("graphUpdate", (dataset) => {
+                if (this.dataKey in dataset) {
+                    this.addDatapoint(dataset[this.dataKey]);
+                }
+            });
         },
         methods: {
+            addDatapoint(point) {
+                this.lightData.shift();
+                this.lightData.push({x: Date.now(), y: point});
+                this.zeroAxis.shift();
+                this.zeroAxis.push({x: Date.now(), y: 0});
+                this.graph[0].update();
+            },
             initChart() {
-                this.graph[0] = new Rickshaw.Graph({
+                this.graph[0] = new this.$rickshaw.Graph({
                 element: this.$refs.chart,
-                height: 300,
-                width: 800,
+                //height: 300,
+                //width: 800,
                 min: "auto",
                 padding: {
                     top: 0.1,
@@ -66,20 +69,6 @@
     }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-    margin: 40px 0 0;
-}
-ul {
-    list-style-type: none;
-    padding: 0;
-}
-li {
-    display: inline-block;
-    margin: 0 10px;
-}
-a {
-    color: #42b983;
-}
+
 </style>
