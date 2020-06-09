@@ -1,6 +1,9 @@
 <template>
     <div class="DataEmitter">
         <h2>{{msg}} at {{frequency}} Hz</h2>
+        <h2>{{this.connection == null ? "Not Connected" : "Connected"}}</h2>
+        <button v-on:click="connect()">Connect</button>
+        <button v-on:click="sendMessage('hello')">Send Message</button>
     </div>
 </template>
 
@@ -15,7 +18,8 @@
             return {
                 lastNum: 0,
                 counter: 0,
-                interval: Number
+                interval: Number,
+                connection: null
             }
         },
         mounted() {
@@ -34,6 +38,24 @@
                 }
                 this.counter += 1;
                 this.$root.$emit("graphUpdate", (dataset));
+            },
+            sendMessage(message) {
+                console.log("Hello");
+                console.log(this.connection);
+                this.connection.send(message);
+            },
+            connect() {
+                console.log("Starting connection to WebSocket Server");
+                this.connection = new WebSocket("wss://echo.websocket.org");
+
+                this.connection.onmessage = function(event) {
+                    console.log(event);
+                }
+
+                this.connection.onopen = function(event) {
+                    console.log(event);
+                    console.log("Successfully connected to websocket server...");
+                }
             }
         }
     }

@@ -41,27 +41,19 @@
             },
             initChart() {
                 this.graph[0] = new this.$rickshaw.Graph({
-                element: this.$refs.chart,
-                //height: 300,
-                //width: 800,
-                min: "auto",
-                padding: {
-                    top: 0.1,
-                    bottom: 0.1,
-                    left: 0.1,
-                    right: 0.1
-                },
-                renderer: "line",
-                series: [
-                    {
-                        color: 'black',
-                        data: this.lightData
+                    element: this.$refs.chart,
+                    min: "auto",
+                    padding: {
+                        top: 0.1,
+                        bottom: 0.1,
+                        left: 0.1,
+                        right: 0.1
                     },
-                    {
-                        color: 'gray',
-                        data: this.zeroAxis
-                    }
-                ]
+                    renderer: "line",
+                    series: [
+                        {color: 'black', data: this.lightData},
+                        {color: 'gray', data: this.zeroAxis}
+                    ]
                 });
                 this.graph[0].render();
             }
