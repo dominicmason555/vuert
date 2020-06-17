@@ -46,13 +46,14 @@
                     padding: {
                         top: 0.1,
                         bottom: 0.1,
-                        left: 0.1,
-                        right: 0.1
+                        left: 0,
+                        right: 0
                     },
                     renderer: "line",
+                    interpolation: "basis",
                     series: [
-                        {color: 'black', data: this.lightData},
-                        {color: 'gray', data: this.zeroAxis}
+                        {color: '#56b6c2', data: this.lightData},
+                        {color: '#abb2bf', data: this.zeroAxis}
                     ]
                 });
                 this.graph[0].render();
@@ -62,5 +63,11 @@
 </script>
 
 <style scoped>
+
+.rickshaw-graph {
+    border: 2px solid #5c6370;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.1);
+}
 
 </style>

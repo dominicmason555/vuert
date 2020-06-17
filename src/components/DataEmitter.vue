@@ -46,7 +46,7 @@
             },
             connect() {
                 console.log("Starting connection to WebSocket Server");
-                this.connection = new WebSocket("wss://echo.websocket.org");
+                this.connection = new WebSocket("wss://localhost:5001/ws");
 
                 this.connection.onmessage = function(event) {
                     console.log(event);
@@ -62,5 +62,9 @@
 </script>
 
 <style scoped>
+
+h2 {
+    color: #d4d4d4;
+}
 
 </style>
