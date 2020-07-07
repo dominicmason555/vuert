@@ -50,7 +50,7 @@
                         right: 0
                     },
                     renderer: "line",
-                    interpolation: "basis",
+                    //interpolation: "basis",
                     series: [
                         {color: '#56b6c2', data: this.lightData},
                         {color: '#abb2bf', data: this.zeroAxis}

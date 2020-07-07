@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <div class="sidebar">
-            <DataEmitter msg="Emitter" v-bind:frequency="100"/>
+            <DataEmitter msg="Emitter" v-bind:frequency="10"/>
         </div>
         <div class="main" style="grid-auto-flow: row dense;">
             <LiveGraph msg="Fast Graph" dataKey="point1" />
